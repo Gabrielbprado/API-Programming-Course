@@ -9,6 +9,13 @@ class PeopleController extends  ControllerBase
     super(peopleService);
   }
 
+  async GetEnrollment(req,res)
+  {
+    const { student_id }  = req.params;
+    const enrollment = await peopleService.GetEnrollment(Number(student_id));
+    return res.status(200).json(enrollment);
+  }
+
 }
 
 module.exports = PeopleController;

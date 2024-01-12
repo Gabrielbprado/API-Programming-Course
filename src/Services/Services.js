@@ -11,10 +11,16 @@ class Services
     return dataSource[this.model].findAll();
   }
 
-  async Post(req)
+  async GetId(id)
   {
+    return dataSource[this.model].findByPk(id);
+  }
+
+  async Post (req)
+  {  
     return dataSource[this.model].create(req.body);
   }
+  
 
   async Put(req)
   {
