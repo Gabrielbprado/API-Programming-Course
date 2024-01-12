@@ -15,19 +15,20 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      StartDate: {
+      startDate: {
         type: Sequelize.DATEONLY
       },
-      categories_id: {
-        allowNull : false,
-        type : Sequelize.INTEGER,
-        references : {model : 'categories', Key : 'id'}
+      category_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {model: 'categories', key: 'id'}
       },
       teacher_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references :{model : 'persons', Key: 'id'}
+        references: {model: 'persons', key: 'id'}
       },
+      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

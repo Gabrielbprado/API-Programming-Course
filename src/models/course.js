@@ -4,8 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Course extends Model {
-
-   
+    
     static associate(models) {
       Course.belongsTo(models.People,
         {
@@ -13,19 +12,18 @@ module.exports = (sequelize, DataTypes) => {
         });
       Course.belongsTo(models.Category,
         {
-          foreignKey: 'categories_id'
+          foreignKey : 'categories_id'
         });
-      Course.hasMany(models.Enrollment,
+      Course.hasMany(models.Enrolled,
         {
-          foreignKey: 'course_id' 
+          foreignKey: 'course_id'
         });
-
     }
   }
   Course.init({
     title: DataTypes.STRING,
     description: DataTypes.STRING,
-    StartDate: DataTypes.DATEONLY
+    startDate: DataTypes.DATEONLY
   }, {
     sequelize,
     modelName: 'Course',

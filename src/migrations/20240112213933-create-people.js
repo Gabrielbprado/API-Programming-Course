@@ -18,7 +18,7 @@ module.exports = {
       cpf: {
         type: Sequelize.STRING
       },
-      active: {
+      ativo: {
         type: Sequelize.BOOLEAN
       },
       role: {
