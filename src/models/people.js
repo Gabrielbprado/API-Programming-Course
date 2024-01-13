@@ -4,13 +4,12 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class People extends Model {
-  
-    
-     
+   
     static associate(models) {
       People.hasMany(models.Enrolled,
         {
-          foreignKey : 'student_id'
+          foreignKey : 'student_id',
+          as: 'ClasSsubscribed'
         });
       People.hasMany(models.Course,
         {
@@ -20,14 +19,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   People.init({
     name: DataTypes.STRING,
-    email: DataTypes.STRING,
     cpf: DataTypes.STRING,
     ativo: DataTypes.BOOLEAN,
     role: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'persons',
-    tableName : 'persons'
+    modelName: 'People',
+    tableName: 'persons'
   });
   return People;
 };

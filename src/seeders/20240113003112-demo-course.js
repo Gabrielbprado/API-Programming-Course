@@ -4,12 +4,13 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
    
+     
     await queryInterface.bulkInsert('courses',  [
       {
         title: 'API com Express',
         description: 'Curso de API com Express e MongoDB',
         startDate: '2023-01-01',
-        category_id: 1,
+        categories_id: 1,
         teacher_id: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -18,7 +19,7 @@ module.exports = {
         title: 'SpringBoot',
         description: 'Curso de Java com Spring Framework',
         startDate: '2023-01-01',
-        category_id: 2,
+        categories_id: 2,
         teacher_id: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -27,7 +28,7 @@ module.exports = {
         title: 'Python Web com Django',
         description: 'Curso de aplicações web com Django',
         startDate: '2023-01-01',
-        category_id: 3,
+        categories_id: 3,
         teacher_id: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -36,7 +37,7 @@ module.exports = {
         title: 'Orientação a Objetos com C#',
         description: 'Curso de C#: coleções, arquivos e libs',
         startDate: '2023-01-01',
-        category_id: 4,
+        categories_id: 4,
         teacher_id: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -46,7 +47,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-   
+    
+     
     await queryInterface.bulkDelete('courses', null, {});
      
   }

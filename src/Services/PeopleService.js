@@ -1,4 +1,4 @@
-const Services = require('./Services.js');
+const Services = require('./Services.JS');
 
 class PeopleService extends Services {
   constructor() {

@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Course extends Model {
-    
+   
     static associate(models) {
       Course.belongsTo(models.People,
         {
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Course',
-    tableName : 'courses'
+    tableName: 'courses'
   });
   return Course;
 };

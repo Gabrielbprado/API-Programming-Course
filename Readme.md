@@ -28,9 +28,10 @@ This API allows user registration and their association with different scenarios
 
 ```json
 {
-  "name": "User Name",
-  "email": "user@email.com",
-  "password": "password123"
-}
+        "name": "Dine Docente",
+        "cpf": "80941142078",
+        "ativo": true,
+        "role": "docente"      
+      },
 
 

@@ -18,7 +18,11 @@ module.exports = {
       startDate: {
         type: Sequelize.DATEONLY
       },
-      category_id: {
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      categories_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {model: 'categories', key: 'id'}
@@ -27,11 +31,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {model: 'persons', key: 'id'}
-      },
-      
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,

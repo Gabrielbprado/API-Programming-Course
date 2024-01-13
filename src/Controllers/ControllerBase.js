@@ -10,7 +10,7 @@ class ControllerBase
   {
     try
     {
-      const entity = await this.Entity.GetAll(req);
+      const entity = await this.Entity.GetAll();
       return res.status(200).json(entity);
     }catch (error)
     {
