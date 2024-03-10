@@ -4,7 +4,7 @@ This API allows user registration and their association with different scenarios
 
 ## Data Model
 
-![Data Model](entidades.png)
+![Data Model](./Assets/entidades.png)
 
 
 # How to Use
