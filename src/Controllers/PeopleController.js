@@ -16,6 +16,18 @@ class PeopleController extends  ControllerBase
     return res.status(200).json(enrollment);
   }
 
+  async GetAllScope(req,res)
+  {
+    try
+    {
+      const listPeople = await peopleService.GetAllScope();
+      return res.status(200).json(listPeople);
+    } catch(error)
+    {
+      res.status(500).json({message : 'Ocorreu um Erro do Lado Do Servidor', Erro : error});
+    }
+  }
+
 }
 
 module.exports = PeopleController;

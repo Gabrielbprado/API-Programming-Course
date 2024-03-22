@@ -7,6 +7,7 @@ const enrollmentController = new EnrollmentController();
 const router = Router();
 
 router.get('/people',(req,res) => peopleController.GetAll(req,res));
+router.get('/people/scope/all',(req,res) => peopleController.GetAllScope(req,res));
 router.get('/people/:id',(req,res) => peopleController.GetId(req,res));
 router.post('/people',(req,res) => peopleController.Post(req,res));
 router.put('/people/:id',(req,res)=> peopleController.Put(req,res));

@@ -5,6 +5,10 @@ class Services
   {
     this.model = NameModel;
   }
+  async GetScopeAll(scope)
+  {
+    return dataSource[this.model].scope(scope).findAll();
+  }
 
   async GetAll()
   {

@@ -10,6 +10,12 @@ class PeopleService extends Services {
     const ListEnrollment = await student.getClasSsubscribed();
     return ListEnrollment;
   }
+
+  async GetAllScope()
+  {
+    const listPeople =  await super.GetScopeAll('all');
+    return listPeople;
+  }
 }
 
 module.exports = PeopleService;

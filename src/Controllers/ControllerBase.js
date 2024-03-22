@@ -41,7 +41,7 @@ class ControllerBase
   {
     try
     {
-      const entity = await this.Entity.Post();
+      const entity = await this.Entity.Post(req);
       return res.status(201).json(entity);
     }catch (error)
     {
