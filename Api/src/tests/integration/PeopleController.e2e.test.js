@@ -61,6 +61,48 @@ describe("E2E - PeopleController GetAll", () => {
   });
 });
 
+describe("E2E - PeopleController - Recuperar uma Pessoa por ID (GET)", () => 
+{
+  beforeAll(async () => {
+    await dataSource.People.destroy({ where: {}, force: true });
+    
+    const people = await dataSource.People.bulkCreate([
+      {
+        name: "John Doe",
+        cpf: 63058133022,
+        ativo: true,
+        createdAt: "2024-01-13 01:05:13.028 +00:00",
+        updatedAt: "2024-01-13 01:05:13.028 +00:00",
+      },
+      {
+        name: "Maria Clara",
+        cpf: 44444444444,
+        ativo: true,
+        createdAt: "2024-01-13 01:05:13.028 +00:00",
+        updatedAt: "2024-01-13 01:05:13.028 +00:00",
+      },
+    ]);
+    
+    personId = people[0].id;
+  });
+
+  afterAll(async () => {
+    await dataSource.People.destroy({ where: {}, force: true });
+  });
+
+  it("Recovering by ID",async () => 
+  {
+    const response = await request(app).get(`/people/${personId}`);
+    expect(response.body).toMatchObject( {
+      name: "John Doe",
+      cpf: "63058133022",
+      ativo: true,
+      createdAt: "2024-01-13T01:05:13.028Z",
+      updatedAt: "2024-01-13T01:05:13.028Z",
+    },);
+  })
+})
+
 describe("E2E - PeopleController - Atualizar Pessoa (PUT)", () => {
   let personId;
 
