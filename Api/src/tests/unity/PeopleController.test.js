@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 /* eslint-disable no-undef */
-const ControllerBase = require("../ControllerBase.js");
+const ControllerBase = require("../../Controllers/ControllerBase.js");
 const PeopleService = require('../../Services/PeopleService.js');
 jest.mock("../../Services/PeopleService.js");
 

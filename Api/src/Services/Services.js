@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const dataSource = require('../models');
 class Services
 {
@@ -12,7 +13,7 @@ class Services
 
   async GetAll()
   {
-    return dataSource[this.model].findAll();
+    return dataSource[this.model].findAll({where: {} });
   }
 
   async GetId(id)
@@ -28,6 +29,7 @@ class Services
 
   async Put(req)
   {
+    console.log(`Id`, req.params.id)
     return dataSource[this.model].update(req.body, {
       where : 
       {
