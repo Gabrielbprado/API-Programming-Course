@@ -25,4 +25,11 @@ describe('E2E - PeopleController GetAll', () => {
     expect(response.body[0]).toMatchObject( {name: 'John Doe', cpf: '63058133022', ativo: true, createdAt: '2024-01-13T01:05:13.028Z', updatedAt: '2024-01-13T01:05:13.028Z' });
     expect(response.body[1]).toMatchObject({ name: 'Maria Clara', cpf: '44444444444', ativo: true, createdAt: '2024-01-13T01:05:13.028Z', updatedAt: '2024-01-13T01:05:13.028Z' });
   });
+
+    it('deve retornar 404 quando não houver pessoas', async () => {
+        await dataSource.People.destroy({ where: {} });
+        const response = await request(app).get('/people');
+    
+        expect(response.status).toBe(404);
+    });
 });

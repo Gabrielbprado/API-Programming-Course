@@ -10,6 +10,11 @@ class ControllerBase
     try
     {
       const entity = await this.Entity.GetAll();
+      if (entity.length === 0) {
+        return res.status(404).json({ message: 'Nenhuma pessoa encontrada' });
+      }
+      
+
       return res.status(200).json(entity);
     }catch (error)
     {
