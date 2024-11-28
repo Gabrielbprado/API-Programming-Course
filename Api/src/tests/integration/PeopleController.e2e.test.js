@@ -103,6 +103,34 @@ describe("E2E - PeopleController - Recuperar uma Pessoa por ID (GET)", () =>
   })
 })
 
+describe("E2E - PeopleController - Cadastrando Uma pessoa (POST)", () => 
+{
+  beforeAll(async () => {
+    await dataSource.People.destroy({ where: {}, force: true });
+  });
+
+  afterAll(async () => {
+    await dataSource.People.destroy({ where: {}, force: true });
+  });
+
+  it("Cadastrando Pessoa",async () => 
+  {
+    const person = {
+      name: "Gabriel Prado",
+      cpf: 63058133022,
+      ativo: true,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const response = await request(app).post(`/people`).send(person);
+    expect(response.body).toMatchObject( {
+      name: person.name,
+      cpf: person.cpf,
+      ativo: person.ativo,
+    });
+  })
+})
+
 describe("E2E - PeopleController - Atualizar Pessoa (PUT)", () => {
   let personId;
 
