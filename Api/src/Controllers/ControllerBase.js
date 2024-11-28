@@ -59,7 +59,7 @@ class ControllerBase
     try
     {
       await this.Entity.Put(req);
-      return res.status(201).json({message : 'Up-to-date person'});
+      return res.status(200).json({message : 'Up-to-date person'});
     } catch(error)
     {
       res.status(500).json({message : 'Ocorreu um Erro do Lado Do Servidor', Erro : error});

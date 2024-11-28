@@ -1,29 +1,19 @@
 const request = require("supertest");
 const app = require("../../app");
 const dataSource = require("../../models");
+const { generatePerson } = require("../factories/personFactory");
 
 let personId;
+
 describe("E2E - PeopleController GetAll", () => {
   beforeAll(async () => {
     await dataSource.People.destroy({ where: {}, force: true });
-    
+
     const people = await dataSource.People.bulkCreate([
-      {
-        name: "John Doe",
-        cpf: 63058133022,
-        ativo: true,
-        createdAt: "2024-01-13 01:05:13.028 +00:00",
-        updatedAt: "2024-01-13 01:05:13.028 +00:00",
-      },
-      {
-        name: "Maria Clara",
-        cpf: 44444444444,
-        ativo: true,
-        createdAt: "2024-01-13 01:05:13.028 +00:00",
-        updatedAt: "2024-01-13 01:05:13.028 +00:00",
-      },
+      generatePerson(),
+      generatePerson(),
     ]);
-    
+
     personId = people[0].id;
   });
 
@@ -37,19 +27,13 @@ describe("E2E - PeopleController GetAll", () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Array);
     expect(response.body).toHaveLength(2);
+
     expect(response.body[0]).toMatchObject({
-      name: "John Doe",
-      cpf: "63058133022",
+      name: expect.any(String),
+      cpf: expect.any(String),
       ativo: true,
-      createdAt: "2024-01-13T01:05:13.028Z",
-      updatedAt: "2024-01-13T01:05:13.028Z",
-    });
-    expect(response.body[1]).toMatchObject({
-      name: "Maria Clara",
-      cpf: "44444444444",
-      ativo: true,
-      createdAt: "2024-01-13T01:05:13.028Z",
-      updatedAt: "2024-01-13T01:05:13.028Z",
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
     });
   });
 
@@ -61,28 +45,11 @@ describe("E2E - PeopleController GetAll", () => {
   });
 });
 
-describe("E2E - PeopleController - Recuperar uma Pessoa por ID (GET)", () => 
-{
+describe("E2E - PeopleController - Recuperar uma Pessoa por ID (GET)", () => {
   beforeAll(async () => {
     await dataSource.People.destroy({ where: {}, force: true });
-    
-    const people = await dataSource.People.bulkCreate([
-      {
-        name: "John Doe",
-        cpf: 63058133022,
-        ativo: true,
-        createdAt: "2024-01-13 01:05:13.028 +00:00",
-        updatedAt: "2024-01-13 01:05:13.028 +00:00",
-      },
-      {
-        name: "Maria Clara",
-        cpf: 44444444444,
-        ativo: true,
-        createdAt: "2024-01-13 01:05:13.028 +00:00",
-        updatedAt: "2024-01-13 01:05:13.028 +00:00",
-      },
-    ]);
-    
+
+    const people = await dataSource.People.bulkCreate([generatePerson()]);
     personId = people[0].id;
   });
 
@@ -90,21 +57,21 @@ describe("E2E - PeopleController - Recuperar uma Pessoa por ID (GET)", () =>
     await dataSource.People.destroy({ where: {}, force: true });
   });
 
-  it("Recovering by ID",async () => 
-  {
+  it("deve recuperar uma pessoa por ID", async () => {
     const response = await request(app).get(`/people/${personId}`);
-    expect(response.body).toMatchObject( {
-      name: "John Doe",
-      cpf: "63058133022",
-      ativo: true,
-      createdAt: "2024-01-13T01:05:13.028Z",
-      updatedAt: "2024-01-13T01:05:13.028Z",
-    },);
-  })
-})
 
-describe("E2E - PeopleController - Cadastrando Uma pessoa (POST)", () => 
-{
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({
+      name: expect.any(String),
+      cpf: expect.any(String),
+      ativo: true,
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
+    });
+  });
+});
+
+describe("E2E - PeopleController - Cadastrando Uma pessoa (POST)", () => {
   beforeAll(async () => {
     await dataSource.People.destroy({ where: {}, force: true });
   });
@@ -113,53 +80,40 @@ describe("E2E - PeopleController - Cadastrando Uma pessoa (POST)", () =>
     await dataSource.People.destroy({ where: {}, force: true });
   });
 
-  it("Cadastrando Pessoa",async () => 
-  {
-    const person = {
-      name: "Gabriel Prado",
-      cpf: 63058133022,
-      ativo: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    const response = await request(app).post(`/people`).send(person);
-    expect(response.body).toMatchObject( {
+  it("deve cadastrar uma nova pessoa", async () => {
+    const person = generatePerson(); 
+    const response = await request(app).post("/people").send(person);
+
+    expect(response.status).toBe(201);
+    expect(response.body).toMatchObject({
       name: person.name,
       cpf: person.cpf,
       ativo: person.ativo,
     });
-  })
-})
+  });
+});
 
 describe("E2E - PeopleController - Atualizar Pessoa (PUT)", () => {
   let personId;
 
   beforeEach(async () => {
-    await dataSource.People.destroy({ where: {}, force: true }); 
+    await dataSource.People.destroy({ where: {}, force: true });
 
-    const person = await dataSource.People.create({
-      name: "John Doe",
-      cpf: 63058133022,
-      ativo: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-
-    personId = person.id; 
+    const person = await dataSource.People.create(generatePerson());
+    personId = person.id;
   });
 
   afterEach(async () => {
     await dataSource.People.destroy({ where: {}, force: true });
-    await dataSource.sequelize.close();
-
   });
 
-  it("atualiza uma pessoa no banco de dados PUT", async () => {
+  it("deve atualizar uma pessoa no banco de dados", async () => {
     const updatedPersonData = {
       name: "Gabriel Prado",
     };
 
     const response = await request(app).put(`/people/${personId}`).send(updatedPersonData);
-    expect(response.status).toBe(201); 
+    expect(response.status).toBe(200); 
+    expect(response.body.message).toBe("Up-to-date person");
   });
 });
