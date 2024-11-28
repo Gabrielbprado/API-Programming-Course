@@ -1,4 +1,3 @@
-
 class ControllerBase
 {
   constructor(ServiceEntity)

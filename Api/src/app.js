@@ -1,5 +1,6 @@
 const express = require('express');
 const route = require('./Routes/index.js');
+
 const app = express();
 route(app);
 app.get('/teste', (req, res) => {
